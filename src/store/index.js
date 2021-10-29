@@ -5,16 +5,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		weatherDay: [],
-		weather5day: [],
-		weatherOneCall: [],
+		weatherDay: {},
+		weather5day: {},
+		weatherOneCall: {},
 		location: 'Kiev'
 	},
 	mutations: {
 		set_weather_day(state, weatherDay) {
-			const updateArr = []
-			updateArr.push(weatherDay)
-			state.weatherDay = updateArr
+			state.weatherDay = weatherDay
 		},
 		set_weather_5day(state, weather5day) {
 			const getNeewWeek = (weather5day) => {
@@ -35,14 +33,10 @@ export default new Vuex.Store({
 				}
 			}
 
-			console.log(getNeewWeek(weather5day));
 			state.weather5day = getNeewWeek(weather5day)
-			// console.log(state.weather5day);
 		},
 		set_one_call_API(state, weatherOneCall) {
-			const updateArr = []
-			updateArr.push(weatherOneCall)
-			state.weatherOneCall = updateArr
+			state.weatherOneCall = weatherOneCall
 		},
 		set_location(state, location) {
 			state.location = location
@@ -81,6 +75,7 @@ export default new Vuex.Store({
 			} catch (error) {
 				console.log(error);
 			}
+
 		},
 	},
 	getters: {
