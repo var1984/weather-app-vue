@@ -12,7 +12,6 @@
 				<v-btn>
 					<span>&deg;C</span>
 				</v-btn>
-
 				<v-btn>
 					<span>&deg;F</span>
 				</v-btn>

@@ -36,8 +36,8 @@
 			</v-row>
 		</v-card-text>
 		<v-list-item>
-			<v-list-item-subtitle
-				>{{ setDays }}, <b> {{ setTime() || load }}</b>
+			<v-list-item-subtitle 
+				>{{ getDays }}, <b v-if="onecall.minutely"> {{ getUiTime || load}}</b>
 			</v-list-item-subtitle>
 		</v-list-item>
 
@@ -76,14 +76,15 @@ export default {
 	mounted() {
 		this.get_weather_day(this.location);
 		this.get_weather_5day(this.location);
-		if (this.weatherDay && this.weatherDay.coord) {
-			this.one_call_API(this.weatherDay.coord);
-		}
+		// this.one_call_API(this.weatherDay.coord);
 	},
 	computed: {
 		...mapGetters(['weatherDay', 'onecall', 'location']),
-		setDays() {
+		getDays() {
 			return this.labels[new Date().getDay()];
+		},
+		getUiTime() {
+				return new Date(this.onecall.minutely[0].dt * 1000).toLocaleTimeString();
 		},
 	},
 	methods: {
@@ -100,19 +101,14 @@ export default {
 			this.get_weather_5day(this.location);
 			this.localCity = '';
 		},
-		setTime() {
-			if (this.onecall && this.onecall.minutely)
-				return new Date(this.onecall.minutely[0].dt * 1000).toLocaleTimeString();
+	},
+	watch: {
+		weatherDay(weatherDay) {
+			if (weatherDay) {
+				this.one_call_API(weatherDay.coord);
+			}
 		},
 	},
-	// watch: {
-	// 	weatherDay(weatherDay) {
-	// 		if (weatherDay) {
-	// 			this.one_call_API(weatherDay.coord);
-	// 			return weatherDay;
-	// 		}
-	// 	},
-	// },
 };
 </script>
 <style lang="scss" scoped>
