@@ -9,7 +9,7 @@ export default new Vuex.Store({
 		weather5day: {},
 		weatherOneCall: {},
 		location: 'Kiev',
-		isLoadingWeatherDay: false
+		isLoading: false
 	},
 	mutations: {
 		set_weather_day(state, weatherDay) {
@@ -37,25 +37,36 @@ export default new Vuex.Store({
 		},
 		set_one_call_API(state, weatherOneCall) {
 			state.weatherOneCall = weatherOneCall;
+			console.log(state.weatherOneCall);
 		},
 		set_location(state, location) {
 			state.location = location;
 		},
+		set_loading(state, status) {
+			state.isLoading = status;
+		},
 	},
 	actions: {
 		async get_weather_day({ commit }, location) {
-			const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=9bc0d27c6f2de79c6abfcef239e353da`;
+			commit(
+				'set_loading',
+				true);
+
+			const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=da48d4c5d4c545a7cf499e9cd742e810`;
 			try {
 				const response = await axios.get(url);
 				commit(
 					'set_weather_day',
 					response.data);
+				commit(
+					'set_loading',
+					false);
 			} catch (error) {
 				console.log(error);
 			}
 		},
 		async get_weather_5day({ commit }, location) {
-			const url = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=9bc0d27c6f2de79c6abfcef239e353da`;
+			const url = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=da48d4c5d4c545a7cf499e9cd742e810`;
 			try {
 				const response = await axios.get(url);
 				commit('set_weather_5day', response.data);
@@ -63,8 +74,9 @@ export default new Vuex.Store({
 				console.log(error);
 			}
 		},
-		async one_call_API({ commit }, { lat, lon }) {
-			const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=9bc0d27c6f2de79c6abfcef239e353da`;
+		async one_call_API({ commit, state }) {
+			console.log(state.weatherDay);
+			const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${state.weatherDay.coord.lat}&lon=${state.weatherDay.coord.lon}&exclude=hourly,daily&appid=da48d4c5d4c545a7cf499e9cd742e810`;
 			try {
 				const response = await axios.get(url);
 				commit('set_one_call_API', response.data);
@@ -86,6 +98,9 @@ export default new Vuex.Store({
 		location(state) {
 			return state.location;
 		},
+		isLoading(state) {
+			return state.isLoading
+		}
 	},
 	modules: {},
 });

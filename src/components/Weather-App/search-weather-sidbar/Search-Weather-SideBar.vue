@@ -36,8 +36,8 @@
 			</v-row>
 		</v-card-text>
 		<v-list-item>
-			<v-list-item-subtitle 
-				>{{ getDays }}, <b v-if="onecall.minutely"> {{ getUiTime || load}}</b>
+			<v-list-item-subtitle
+				>{{ getDays }}, <b v-if="onecall.minutely"> {{ getUiTime || load }}</b>
 			</v-list-item-subtitle>
 		</v-list-item>
 
@@ -70,13 +70,7 @@ export default {
 	data() {
 		return {
 			localCity: '',
-			load: 'Loading......',
 		};
-	},
-	mounted() {
-		this.get_weather_day(this.location);
-		this.get_weather_5day(this.location);
-		// this.one_call_API(this.weatherDay.coord);
 	},
 	computed: {
 		...mapGetters(['weatherDay', 'onecall', 'location']),
@@ -84,29 +78,17 @@ export default {
 			return this.labels[new Date().getDay()];
 		},
 		getUiTime() {
-				return new Date(this.onecall.minutely[0].dt * 1000).toLocaleTimeString();
+			return new Date(this.onecall.minutely[0].dt * 1000).toLocaleTimeString();
 		},
 	},
 	methods: {
 		...mapActions(['get_weather_day', 'one_call_API', 'get_weather_5day']),
 		newCity() {
-			const { lat, lon } = this.weatherDay.coord;
-			const coord = {
-				lat,
-				lon,
-			};
-			this.one_call_API(coord);
+			this.one_call_API(this.weatherDay.coord);
 			this.$store.commit('set_location', this.localCity);
 			this.get_weather_day(this.location);
 			this.get_weather_5day(this.location);
 			this.localCity = '';
-		},
-	},
-	watch: {
-		weatherDay(weatherDay) {
-			if (weatherDay) {
-				this.one_call_API(weatherDay.coord);
-			}
 		},
 	},
 };

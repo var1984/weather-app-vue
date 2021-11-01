@@ -1,8 +1,12 @@
 <template>
-	<WeeklyWeather :labels="labels" :localCity="location" />
+	<div>
+		<WeeklyWeather :labels="labels" />
+		<TodaysHighlights />
+	</div>
 </template>
 <script>
 import WeeklyWeather from '../weather-main/weekly-weather/weekly-weather';
+import TodaysHighlights from './todays-highlights/todays-highlights';
 export default {
 	name: 'WeatherMain',
 	props: {
@@ -10,12 +14,10 @@ export default {
 			type: Array,
 			require: true,
 		},
-		location: {
-			type: String,
-		},
 	},
 	components: {
 		WeeklyWeather,
+		TodaysHighlights,
 	},
 };
 </script>
