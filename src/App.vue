@@ -1,6 +1,8 @@
 <template>
 	<WeatherApp v-if="!isLoading" />
-	<div v-else>{{ load }}</div>
+	<div v-else class="text-center">
+		<v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+	</div>
 </template>
 
 <script>
@@ -11,11 +13,6 @@ export default {
 	name: 'App',
 	components: {
 		WeatherApp,
-	},
-	data() {
-		return {
-			load: 'Loading......',
-		};
 	},
 	mounted() {
 		this.init();

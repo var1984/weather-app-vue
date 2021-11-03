@@ -14,7 +14,7 @@
 </template>
 <script>
 import SearchWeatherSideBar from '../Weather-App/search-weather-sidbar/Search-Weather-SideBar';
-import WeatherMain from '../Weather-App/weather-main/weather-main.vue';
+import WeatherMain from '../Weather-App/weather-main/Weather-Main';
 export default {
 	name: 'Weather-App',
 	components: {

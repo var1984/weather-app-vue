@@ -5,8 +5,8 @@
 	</div>
 </template>
 <script>
-import WeeklyWeather from '../weather-main/weekly-weather/weekly-weather';
-import TodaysHighlights from './todays-highlights/todays-highlights';
+import WeeklyWeather from '../weather-main/weekly-weather/Weekly-Weather';
+import TodaysHighlights from './todays-highlights/Todays-Highlights';
 export default {
 	name: 'WeatherMain',
 	props: {

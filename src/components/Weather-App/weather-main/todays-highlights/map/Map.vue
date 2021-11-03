@@ -6,7 +6,7 @@
 
 <script>
 export default {
-	name: 'GoogleMap',
+	name: 'Map',
 	data() {
 		return {
 			center: { lat: 45.508, lng: -73.587 },

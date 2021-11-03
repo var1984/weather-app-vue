@@ -103,7 +103,7 @@
 	</v-container>
 </template>
 <script>
-import GoogleMap from './google-map/google-map.vue';
+import GoogleMap from './map/Map';
 import { mapGetters } from 'vuex';
 export default {
 	name: 'TodaysHighlights',
@@ -221,7 +221,7 @@ export default {
 	}
 	.progress-bar {
 		height: 90px;
-		width: 20px;
+		width: 14px;
 		border: 3px solid black;
 		border-radius: 15px !important;
 		display: flex;

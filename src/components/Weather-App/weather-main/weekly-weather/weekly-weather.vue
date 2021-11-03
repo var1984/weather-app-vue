@@ -12,10 +12,14 @@
 			<v-spacer></v-spacer>
 			<v-bottom-navigation :value="value" color="primary">
 				<v-btn @click="onFahrenheit">
-					<span>&deg;F</span>
+					<v-avatar color="indigo" size="36">
+						<span class="white--text text-h5">&deg;F</span>
+					</v-avatar>
 				</v-btn>
 				<v-btn @click="onCelsius">
-					<span>&deg;C</span>
+					<v-avatar color="indigo" size="36">
+						<span class="white--text text-h5">&deg;C</span>
+					</v-avatar>
 				</v-btn>
 			</v-bottom-navigation>
 		</div>
