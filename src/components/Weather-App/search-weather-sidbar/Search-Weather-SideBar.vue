@@ -2,16 +2,7 @@
 	<v-card class="mx-auto pa-3" max-width="400">
 		<div class="d-flex align-center">
 			<v-text-field label="Search City" v-model="localCity" @keyup.enter="newCity()"></v-text-field>
-			<!-- <input type="text" v-model="location" @keyup.enter="newCity(weatherInfo.coord)" /> -->
-			<!-- <v-autocomplete
-				dense
-				label="Search City"
-				class="mr-2"
-				v-model="location"
-				:items="weatherDay"
-				@keyup.enter="newCity"
-			></v-autocomplete> -->
-			<v-btn color="primary" fab small dark>
+			<v-btn color="primary" fab small dark href="https://openweathermap.org/" target="_blank">
 				<v-icon>mdi-home</v-icon>
 			</v-btn>
 		</div>

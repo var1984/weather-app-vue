@@ -37,7 +37,6 @@ export default new Vuex.Store({
 		},
 		set_one_call_API(state, weatherOneCall) {
 			state.weatherOneCall = weatherOneCall;
-			console.log(state.weatherOneCall);
 		},
 		set_location(state, location) {
 			state.location = location;

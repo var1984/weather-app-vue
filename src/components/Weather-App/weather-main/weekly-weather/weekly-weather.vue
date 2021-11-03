@@ -1,59 +1,49 @@
 <template>
-	<v-row>
-		<v-col cols="12">
-			<div class="d-flex flex">
-				<v-bottom-navigation :value="value" color="primary">
-					<v-btn @click="onToday">
-						<span>Today</span>
-					</v-btn>
-					<v-btn @click="onWeek">
-						<span>Week</span>
-					</v-btn>
-				</v-bottom-navigation>
-				<v-spacer></v-spacer>
-				<v-bottom-navigation :value="value" color="primary">
-					<v-btn @click="onFahrenheit">
-						<span>&deg;F</span>
-					</v-btn>
-					<v-btn @click="onCelsius">
-						<span>&deg;C</span>
-					</v-btn>
-				</v-bottom-navigation>
-			</div>
-		</v-col>
+	<v-container>
+		<div class="d-flex">
+			<v-bottom-navigation :value="value" color="primary">
+				<v-btn @click="onToday">
+					<span>Today</span>
+				</v-btn>
+				<v-btn @click="onWeek">
+					<span>Week</span>
+				</v-btn>
+			</v-bottom-navigation>
+			<v-spacer></v-spacer>
+			<v-bottom-navigation :value="value" color="primary">
+				<v-btn @click="onFahrenheit">
+					<span>&deg;F</span>
+				</v-btn>
+				<v-btn @click="onCelsius">
+					<span>&deg;C</span>
+				</v-btn>
+			</v-bottom-navigation>
+		</div>
 		<div v-if="changeDay" class="d-flex flex">
 			<div class="d-flex flex" v-for="wetherInfo of weather5day.list" :key="wetherInfo.id">
-				<v-col>
-					<v-card>
-						<v-list-item-subtitle>{{ setDays(wetherInfo) }}</v-list-item-subtitle>
-						<v-img
-							:src="`http://openweathermap.org/img/wn/${wetherInfo.weather[0].icon}@2x.png`"
-							alt="Sunny image"
-							width="92"
-						></v-img>
-						<v-list-item-subtitle v-if="changeDegrees">
-							<span>{{ Math.round(wetherInfo.main.temp_min - 273) }}&deg;C - </span>
-							<span>{{ Math.round(wetherInfo.main.temp_max - 273) }}&deg;C</span>
-						</v-list-item-subtitle>
-						<v-list-item-subtitle v-else>
-							<span>{{ Math.round(1.8 * wetherInfo.main.temp_min - 457.87) }}&deg;F - </span>
-							<span>{{ Math.round(1.8 * wetherInfo.main.temp_max - 457.87) }}&deg;F</span>
-						</v-list-item-subtitle>
-					</v-card>
-				</v-col>
+				<v-card width="170" class="d-flex flex-column align-center">
+					<v-list-item-subtitle>{{ setDays(wetherInfo) }}</v-list-item-subtitle>
+					<v-img
+						:src="`http://openweathermap.org/img/wn/${wetherInfo.weather[0].icon}@2x.png`"
+						alt="Sunny image"
+						width="92"
+					></v-img>
+					<v-list-item-subtitle v-if="changeDegrees">
+						<span>{{ Math.round(wetherInfo.main.temp_min - 273) }}&deg;C - </span>
+						<span>{{ Math.round(wetherInfo.main.temp_max - 273) }}&deg;C</span>
+					</v-list-item-subtitle>
+					<v-list-item-subtitle v-else>
+						<span>{{ Math.round(1.8 * wetherInfo.main.temp_min - 457.87) }}&deg;F - </span>
+						<span>{{ Math.round(1.8 * wetherInfo.main.temp_max - 457.87) }}&deg;F</span>
+					</v-list-item-subtitle>
+				</v-card>
 			</div>
 		</div>
 		<div v-else>
-			<v-card>
-				<v-list-item-title class="text-h5" v-if="weatherDay && weatherDay.sys">
-					{{ weatherDay.name }}, {{ weatherDay.sys.country }}</v-list-item-title
+			<v-card class="d-flex align-center">
+				<v-list-item class="text-h6" v-if="weatherDay && weatherDay.sys">
+					{{ weatherDay.name }}, {{ weatherDay.sys.country }}</v-list-item
 				>
-
-				<v-img
-					:src="`http://openweathermap.org/img/wn/${weatherDay.weather[0].icon}@2x.png`"
-					alt="Sunny image"
-					width="92"
-				></v-img>
 				<v-list-item v-if="weatherDay && weatherDay.clouds">
 					<v-list-item-icon>
 						<v-icon>mdi-cloud-outline</v-icon>
@@ -73,7 +63,7 @@
 				</v-list-item>
 			</v-card>
 		</div>
-	</v-row>
+	</v-container>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
