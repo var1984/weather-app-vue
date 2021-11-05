@@ -1,5 +1,5 @@
 <template>
-	<v-card class="mx-auto pa-3" max-width="400">
+	<v-card class="mx-auto pa-3" max-width="400" color="#bdddf0bb">
 		<div class="d-flex align-center">
 			<v-text-field label="Search City" v-model="localCity" @keyup.enter="newCity()"></v-text-field>
 			<v-btn color="primary" fab small dark href="https://openweathermap.org/" target="_blank">
@@ -73,12 +73,12 @@ export default {
 		},
 	},
 	methods: {
-		...mapActions(['get_weather_day', 'one_call_API', 'get_weather_5day']),
+		...mapActions(['getWeatherDay', 'oneCallApi', 'getWeather5Day']),
 		newCity() {
-			this.one_call_API(this.weatherDay.coord);
-			this.$store.commit('set_location', this.localCity);
-			this.get_weather_day(this.location);
-			this.get_weather_5day(this.location);
+			this.oneCallApi(this.weatherDay.coord);
+			this.$store.commit('setLocation', this.localCity);
+			this.getWeatherDay(this.location);
+			this.getWeather5Day(this.location);
 			this.localCity = '';
 		},
 	},

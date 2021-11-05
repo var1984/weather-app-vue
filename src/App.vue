@@ -1,8 +1,8 @@
 <template>
 	<WeatherApp v-if="!isLoading" />
-	<div v-else class="text-center">
-		<v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
-	</div>
+	<v-row v-else>
+		<v-progress-circular :size="70" :width="7" color="purple" indeterminate class="loader"></v-progress-circular>
+	</v-row>
 </template>
 
 <script>
@@ -18,12 +18,12 @@ export default {
 		this.init();
 	},
 	methods: {
-		...mapActions(['get_weather_5day', 'one_call_API', 'get_weather_day']),
+		...mapActions(['getWeather5Day', 'oneCallApi', 'getWeatherDay']),
 
 		async init() {
-			await this.get_weather_5day(this.location);
-			await this.get_weather_day(this.location);
-			await this.one_call_API();
+			await this.getWeather5Day(this.location);
+			await this.getWeatherDay(this.location);
+			await this.oneCallApi();
 		},
 	},
 	computed: {
@@ -31,3 +31,8 @@ export default {
 	},
 };
 </script>
+<style lang="scss" scoped>
+.loader {
+	margin: 15% auto;
+}
+</style>

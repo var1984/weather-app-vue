@@ -1,6 +1,6 @@
 <template>
 	<div class="maps">
-		<GmapMap :center="center" :zoom="12" style="width: 400px; height: 335px"> </GmapMap>
+		<GmapMap :center="center" :zoom="12" style="width: 400px; height: 300px"></GmapMap>
 	</div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .maps {
-	width: 350px;
-	height: 350px;
+	width: 400px;
+	height: 300px;
 }
 </style>

@@ -1,114 +1,126 @@
 <template>
 	<v-container>
-		<v-col cols="12">
-			<h3>Todays Highlights</h3>
-		</v-col>
-		<div class="d-flex">
-			<div>
-				<div class="card-line-1 d-flex mb-3">
-					<v-card class="pa-2" height="160" width="225">
-						<v-list-item-title class="mb-5 grey--text lighten-2"> UV index</v-list-item-title>
-						<v-list-item class="d-flex justify-center">
-							<div class="gauge">
-								<div class="gauge-scale">
-									<span>6</span>
-									<span>9</span>
-									<span>12</span>
-								</div>
-								<div class="gauge__body">
-									<div
-										class="gauge__fill"
-										:style="{ transform: `rotate(${initSolarUVIndex}turn)` }"
-									></div>
-									<div class="gauge__cover" v-if="onecall && onecall.current">
-										{{ onecall.current.uvi }}
-									</div>
-								</div>
-							</div>
-						</v-list-item>
-					</v-card>
-
-					<v-card class="pa-2 d-flex flex-column ml-3" height="160" width="225">
-						<v-list-item-title class="grey--text lighten-2 align-self-start">
-							Wind status</v-list-item-title
-						>
-						<v-list-item-title v-if="weatherDay && weatherDay.wind" class="text-h5 align-self-start">
-							{{ initWindStatus }} km/h</v-list-item-title
-						>
-						<v-list-item-title v-if="weatherDay && weatherDay.weather" class="align-self-start mt-5">
-							{{ weatherDay.weather[0].description }}</v-list-item-title
-						>
-					</v-card>
-
-					<v-card class="pa-2 d-flex flex-column ml-3" height="160" width="225">
-						<v-list-item-title class="grey--text lighten-2 align-self-start">
-							Sunrise & Sunset</v-list-item-title
-						>
-						<v-list-item v-if="weatherDay && weatherDay.sys">
-							<v-icon class="yellow--text">mdi-arrow-up-circle</v-icon>
-							<v-list-item-title class="ml-5">{{ sunrise }}</v-list-item-title>
-						</v-list-item>
-						<v-list-item v-if="weatherDay && weatherDay.sys">
-							<v-icon class="yellow--text">mdi-arrow-down-circle</v-icon>
-							<v-list-item-title class="ml-5">{{ sunset }}</v-list-item-title>
-						</v-list-item>
-					</v-card>
+		<v-row>
+			<v-col cols="12" sm="12" md="4">
+				<h3>Todays Highlights</h3>
+				<div class="weather-wrap">
+					<WeeklyWeather :labels="labels" />
 				</div>
-				<div class="card-line-2 d-flex">
-					<v-card class="pa-4 d-flex flex-column" height="160" width="225">
-						<v-list-item-title class="grey--text lighten-2 align-self-start"> Humidity</v-list-item-title>
-						<div class="progress-wrap">
-							<div>
-								<span class="text-h5">{{ initScale }}</span>
-								<span>%</span>
+			</v-col>
+		</v-row>
+		<v-row class="d-flex">
+			<v-col cols="12" sm="12" md="4">
+				<v-card class="pa-2" height="160" color="#bdddf0bb">
+					<v-list-item-title class="mb-5 grey--text lighten-2"> UV index</v-list-item-title>
+					<v-list-item class="d-flex justify-center">
+						<div class="gauge">
+							<div class="gauge-scale">
+								<span>6</span>
+								<span>9</span>
+								<span>12</span>
 							</div>
-							<div class="progress-bar">
-								<div class="progress-scale" :style="{ height: initScale + '%' }"></div>
+							<div class="gauge__body">
+								<div
+									class="gauge__fill"
+									:style="{ transform: `rotate(${initSolarUVIndex}turn)` }"
+								></div>
+								<div class="gauge__cover" v-if="onecall && onecall.current">
+									{{ onecall.current.uvi }}
+								</div>
 							</div>
 						</div>
-						<v-list-item-title class="align-self-start"> Misarable</v-list-item-title>
-					</v-card>
+					</v-list-item>
+				</v-card>
+			</v-col>
 
-					<v-card class="pa-4 d-flex flex-column ml-3" height="160" width="225">
-						<v-list-item-title class="grey--text lighten-2 align-self-start">Visibility</v-list-item-title>
-						<v-list-item-title v-if="weatherDay && weatherDay.visibility" class="text-h5 align-self-start">
-							{{ weatherDay.visibility / 1000 }} km/h</v-list-item-title
-						>
-						<v-list-item-title class="align-self-start mt-5"> Good visibility</v-list-item-title>
-					</v-card>
+			<v-col cols="12" sm="12" md="4">
+				<v-card class="pa-2 d-flex flex-column" height="160" color="#bdddf0bb">
+					<v-list-item-title class="grey--text lighten-2 align-self-start"> Wind status</v-list-item-title>
+					<v-list-item-title v-if="weatherDay && weatherDay.wind" class="text-h5 align-self-start">
+						{{ initWindStatus }} km/h</v-list-item-title
+					>
+					<v-list-item-title v-if="weatherDay && weatherDay.weather" class="align-self-start mt-5">
+						{{ weatherDay.weather[0].description }}</v-list-item-title
+					>
+				</v-card>
+			</v-col>
 
-					<v-card class="pa-2 d-flex flex-column ml-3" height="160" width="225">
-						<v-list-item-title class="grey--text lighten-2 align-self-start">
-							Min & Max temperature</v-list-item-title
-						>
-						<v-list-item v-if="weatherDay && weatherDay.sys">
-							<v-icon class="indigo--text">mdi-thermometer-low</v-icon>
-							<v-list-item-title class="ml-5" v-if="weatherDay && weatherDay.main"
-								>{{ Math.round(weatherDay.main.temp_min - 273) }} &deg;C
-							</v-list-item-title>
-						</v-list-item>
-						<v-list-item v-if="weatherDay && weatherDay.main">
-							<v-icon class="red--text">mdi-thermometer-high</v-icon>
-							<v-list-item-title class="ml-5"
-								>{{ Math.round(weatherDay.main.temp_max - 273) }} &deg;C
-							</v-list-item-title>
-						</v-list-item>
-					</v-card>
-				</div>
-			</div>
-			<div class="ml-3">
-				<GoogleMap />
-			</div>
-		</div>
+			<v-col cols="12" sm="12" md="4">
+				<v-card class="pa-2 d-flex flex-column" height="160" color="#bdddf0bb">
+					<v-list-item-title class="grey--text lighten-2 align-self-start">
+						Sunrise & Sunset</v-list-item-title
+					>
+					<v-list-item v-if="weatherDay && weatherDay.sys">
+						<v-icon class="yellow--text">mdi-arrow-up-circle</v-icon>
+						<v-list-item-title class="ml-5">{{ sunrise }}</v-list-item-title>
+					</v-list-item>
+					<v-list-item v-if="weatherDay && weatherDay.sys">
+						<v-icon class="yellow--text">mdi-arrow-down-circle</v-icon>
+						<v-list-item-title class="ml-5">{{ sunset }}</v-list-item-title>
+					</v-list-item>
+				</v-card>
+			</v-col>
+		</v-row>
+		<v-row class="d-flex">
+			<v-col cols="12" sm="12" md="4">
+				<v-card class="pa-4 d-flex flex-column" height="160" color="#bdddf0bb">
+					<v-list-item-title class="grey--text lighten-2 align-self-start"> Humidity</v-list-item-title>
+					<div class="progress-wrap">
+						<div>
+							<span class="text-h5">{{ initScale }}</span>
+							<span>%</span>
+						</div>
+						<div class="progress-bar">
+							<div class="progress-scale" :style="{ height: initScale + '%' }"></div>
+						</div>
+					</div>
+					<v-list-item-title class="align-self-start"> Misarable</v-list-item-title>
+				</v-card>
+			</v-col>
+			<v-col cols="12" sm="12" md="4">
+				<v-card class="pa-4 d-flex flex-column" height="160" color="#bdddf0bb">
+					<v-list-item-title class="grey--text lighten-2 align-self-start">Visibility</v-list-item-title>
+					<v-list-item-title v-if="weatherDay && weatherDay.visibility" class="text-h5 align-self-start">
+						{{ weatherDay.visibility / 1000 }} km/h</v-list-item-title
+					>
+					<v-list-item-title class="align-self-start mt-5"> Good visibility</v-list-item-title>
+				</v-card>
+			</v-col>
+			<v-col cols="12" sm="12" md="4">
+				<v-card class="pa-2 d-flex flex-column" height="160" color="#bdddf0bb">
+					<v-list-item-title class="grey--text lighten-2 align-self-start">
+						<span class="text-color">Min & Max temperature</span>
+					</v-list-item-title>
+					<v-list-item v-if="weatherDay && weatherDay.sys">
+						<v-icon class="indigo--text">mdi-thermometer-low</v-icon>
+						<v-list-item-title class="ml-5" v-if="weatherDay && weatherDay.main"
+							>{{ Math.round(weatherDay.main.temp_min - 273) }} &deg;C
+						</v-list-item-title>
+					</v-list-item>
+					<v-list-item v-if="weatherDay && weatherDay.main">
+						<v-icon class="red--text">mdi-thermometer-high</v-icon>
+						<v-list-item-title class="ml-5"
+							>{{ Math.round(weatherDay.main.temp_max - 273) }} &deg;C
+						</v-list-item-title>
+					</v-list-item>
+				</v-card>
+			</v-col>
+		</v-row>
 	</v-container>
 </template>
 <script>
-import GoogleMap from './map/Map';
 import { mapGetters } from 'vuex';
+import WeeklyWeather from '../weekly-weather/Weekly-Weather.vue';
 export default {
 	name: 'TodaysHighlights',
+	props: {
+		labels: {
+			type: Array,
+			require: true,
+		},
+	},
 	components: {
-		GoogleMap,
+		WeeklyWeather,
 	},
 	data() {
 		return {
@@ -154,7 +166,7 @@ export default {
 	max-width: 150px;
 	font-family: 'Roboto', sans-serif;
 	font-size: 30px;
-	color: #555552;
+	color: #000;
 	height: 100px;
 	position: relative;
 	font-weight: 700;
@@ -162,10 +174,10 @@ export default {
 		position: absolute;
 		font-size: 15px;
 		top: -15px;
-		left: 7px;
+		left: 30px;
 		display: flex;
 		span {
-			margin-left: 41px;
+			margin-left: 4px;
 			&:last-of-type {
 				margin-top: 28px;
 				margin-left: 26px;
@@ -196,12 +208,13 @@ export default {
 		.gauge__cover {
 			width: 75%;
 			height: 150%;
-			background: #ffffff;
+			background: #bdddf0bb;
 			border-radius: 50%;
 			position: absolute;
 			top: 25%;
 			left: 50%;
 			transform: translateX(-50%);
+			z-index: 100;
 
 			/* Text */
 			display: flex;
@@ -212,6 +225,7 @@ export default {
 		}
 	}
 }
+
 .progress-wrap {
 	display: flex;
 	justify-content: space-between;
@@ -236,6 +250,11 @@ export default {
 			height: 80px;
 			width: 8px;
 		}
+	}
+}
+@media (max-width: 500px) {
+	.weather-wrap {
+		display: none;
 	}
 }
 </style>

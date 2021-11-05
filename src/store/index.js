@@ -12,10 +12,10 @@ export default new Vuex.Store({
 		isLoading: false
 	},
 	mutations: {
-		set_weather_day(state, weatherDay) {
+		setWeatherDay(state, weatherDay) {
 			if (weatherDay && weatherDay.coord) state.weatherDay = weatherDay;
 		},
-		set_weather_5day(state, weather5day) {
+		setWeather5Day(state, weather5day) {
 			const getNeewWeek = weather5day => {
 				const weathers = weather5day.list;
 				let weatherByDay = [];
@@ -35,50 +35,50 @@ export default new Vuex.Store({
 			};
 			state.weather5day = getNeewWeek(weather5day);
 		},
-		set_one_call_API(state, weatherOneCall) {
+		setOneCallApi(state, weatherOneCall) {
 			state.weatherOneCall = weatherOneCall;
 		},
-		set_location(state, location) {
+		setLocation(state, location) {
 			state.location = location;
 		},
-		set_loading(state, status) {
+		setLoading(state, status) {
 			state.isLoading = status;
 		},
 	},
 	actions: {
-		async get_weather_day({ commit }, location) {
+		async getWeatherDay({ commit }, location) {
 			commit(
-				'set_loading',
+				'setLoading',
 				true);
 
 			const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=da48d4c5d4c545a7cf499e9cd742e810`;
 			try {
 				const response = await axios.get(url);
 				commit(
-					'set_weather_day',
+					'setWeatherDay',
 					response.data);
 				commit(
-					'set_loading',
+					'setLoading',
 					false);
 			} catch (error) {
 				console.log(error);
 			}
 		},
-		async get_weather_5day({ commit }, location) {
+		async getWeather5Day({ commit }, location) {
 			const url = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=da48d4c5d4c545a7cf499e9cd742e810`;
 			try {
 				const response = await axios.get(url);
-				commit('set_weather_5day', response.data);
+				commit('setWeather5Day', response.data);
 			} catch (error) {
 				console.log(error);
 			}
 		},
-		async one_call_API({ commit, state }) {
+		async oneCallApi({ commit, state }) {
 			console.log(state.weatherDay);
 			const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${state.weatherDay.coord.lat}&lon=${state.weatherDay.coord.lon}&exclude=hourly,daily&appid=da48d4c5d4c545a7cf499e9cd742e810`;
 			try {
 				const response = await axios.get(url);
-				commit('set_one_call_API', response.data);
+				commit('setOneCallApi', response.data);
 			} catch (error) {
 				console.log(error);
 			}
