@@ -1,7 +1,13 @@
 <template>
 	<v-card class="mx-auto pa-3" max-width="400" color="#bdddf0bb">
 		<div class="d-flex align-center">
-			<v-text-field label="Search City" v-model="localCity" @keyup.enter="newCity()"></v-text-field>
+			<v-text-field
+				label="Search City"
+				v-model="localCity"
+				@change="newCity()"
+				@keyup.enter="newCity()"
+				id="autoCompaleInputSelector"
+			></v-text-field>
 			<v-btn color="primary" fab small dark href="https://openweathermap.org/" target="_blank">
 				<v-icon>mdi-home</v-icon>
 			</v-btn>

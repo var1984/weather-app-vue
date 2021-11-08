@@ -4,15 +4,13 @@ import router from './router';
 import store from './store';
 import './assets/styles.scss'
 import vuetify from './plugins/vuetify';
-import * as VueGoogleMaps from 'vue2-google-maps'
+import x5GMaps from "x5-gmaps";
 
-Vue.config.productionTip = false;
-Vue.use(VueGoogleMaps, {
-	load: {
-		key: 'AIzaSyBcpwZoBc0gh20auPp2iFLnU5cqrd0jTSc',
-		libraries: 'places',
-	}
+Vue.use(x5GMaps, {
+	key: "AIzaSyBcpwZoBc0gh20auPp2iFLnU5cqrd0jTSc",
+	libraries: ["places"]
 });
+
 Vue.config.productionTip = false;
 
 

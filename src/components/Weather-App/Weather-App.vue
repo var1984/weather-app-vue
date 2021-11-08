@@ -10,7 +10,7 @@
 				</v-col>
 				<v-col cols="12" md="0" sm="0" class="d-flex justify-center">
 					<div class="map">
-						<GoogleMap />
+						<Map />
 					</div>
 				</v-col>
 			</v-row>
@@ -19,14 +19,14 @@
 </template>
 <script>
 import SearchWeatherSideBar from '../Weather-App/search-weather-sidbar/Search-Weather-SideBar';
-import WeatherMain from '../Weather-App/weather-main/Weather-Main.vue';
-import GoogleMap from '../Weather-App/weather-main/todays-highlights/map/Map.vue';
+import WeatherMain from '../Weather-App/weather-main/Weather-Main';
+import Map from '../Weather-App/weather-main/todays-highlights/map/Map';
 export default {
 	name: 'Weather-App',
 	components: {
 		SearchWeatherSideBar,
 		WeatherMain,
-		GoogleMap,
+		Map,
 	},
 	data() {
 		return {

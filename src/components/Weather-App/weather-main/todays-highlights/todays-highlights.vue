@@ -174,10 +174,10 @@ export default {
 		position: absolute;
 		font-size: 15px;
 		top: -15px;
-		left: 30px;
+		left: -4px;
 		display: flex;
 		span {
-			margin-left: 4px;
+			margin-left: 47px;
 			&:last-of-type {
 				margin-top: 28px;
 				margin-left: 26px;

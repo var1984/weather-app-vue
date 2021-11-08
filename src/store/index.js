@@ -9,7 +9,8 @@ export default new Vuex.Store({
 		weather5day: {},
 		weatherOneCall: {},
 		location: 'Kiev',
-		isLoading: false
+		isLoading: false,
+		autoCompleteInput: '#autoCompaleInputSelector'
 	},
 	mutations: {
 		setWeatherDay(state, weatherDay) {
@@ -99,6 +100,9 @@ export default new Vuex.Store({
 		},
 		isLoading(state) {
 			return state.isLoading
+		},
+		autoCompleteInput(state) {
+			return state.autoCompleteInput
 		}
 	},
 	modules: {},

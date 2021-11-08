@@ -108,7 +108,7 @@
 					</v-col>
 					<v-col class="d-flex justify-center" cols="12" md="4" sm="8">
 						<div class="map">
-							<GoogleMap />
+							<Map />
 						</div>
 					</v-col>
 				</v-row>
@@ -118,7 +118,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import GoogleMap from '../todays-highlights/map/Map';
+import Map from '../todays-highlights/map/Map';
 export default {
 	name: 'WeeklyWeather',
 	props: {
@@ -128,7 +128,7 @@ export default {
 		},
 	},
 	components: {
-		GoogleMap,
+		Map,
 	},
 	data() {
 		return {
